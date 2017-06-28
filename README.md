@@ -1,2 +1,26 @@
-# jsplice
-jSplice is a novel method to detect differential alternative splicing events from RNA-seq experiments. The method relies on junction reads (mapped reads that span an exon-exon junction) to uncover differentially expressed alternative splicing modules (ASMs). AMSs were introduced by Hu et al. (Nucleic Acids Research 2012) and have the advantage to provide a wide definition for alternative splicing events while avoiding the whole transcript reconstruction problem. jSplice analyzes all ASMs of a given genome and compute the largest fold-change difference (referred to as “relative fold-change”) between two overlapping elements (junctions or exons) of an ASM.
+# jsplice 1.0.2
+jSplice is a fast method to detect differential alternative splicing events from RNA-seq
+experiments. (see publication and/or manual for details).
+
+jSplice is freely available under the GPL license at http://www.mhs.biol.ethz.ch/research/krek/jsplice
+
+Requirements
+------------
+- Python 2.7 with numpy/scipy modules
+- coverageBed from BEDtools package
+
+
+Installation
+------------
+Nothing required
+
+Execution
+---------
+Run 'python jSplice.py -h' to access the help menu
+
+What's new in version 1.0.2
+---------------------------
+- Bug fixes
+- Added sanity checks on RPKM calculations
+- 3-decimal values in HTML output
+- Better handling of Ensembl and UCSC chromosome naming schemes
