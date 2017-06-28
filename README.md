@@ -16,7 +16,7 @@ Nothing required
 
 Execution
 ---------
-Run 'python jSplice.py -h' to access the help menu
+Run 'python run.py -h' (or 'python -m jsplice.run' if the jsplice directory is in your PYTHONPATH) to access the help menu
 
 What's new in version 1.0.2
 ---------------------------
