@@ -15,6 +15,7 @@ Requirements
 Installation
 ------------
 sudo python setup.py install
+
 If you don't have administrator rights, then append "--user" to the command. Also make sure that 
 ~/.local/bin is in your path (or move the files somewhere else).
 
