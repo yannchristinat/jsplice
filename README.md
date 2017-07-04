@@ -30,7 +30,6 @@ What's new in version 1.0.3
 Running jSplice
 ---------------
 
-Usage
 jsplice [-h] [-t KEYWORD] [-e] [-b] [-n N] [-s] [-S] [-j] [-x NBEXPS] [-c COUNT] [-r RDIFF] [-k RPKM] [-i INCL] [-p PVAL] [–a ANNOTATION] –d DESIGN –o OUTDIR
 
 Upon the first run, jSplice saves the results into an object file (“OUTDIR/jSplice.dat”). If one wants to re-run jSplice with different parameters or thresholds, the object is loaded to lower computational costs.
