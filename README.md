@@ -1,4 +1,5 @@
-#jSplice 1.0.3
+jSplice 1.0.3
+-------------
 
 jSplice is a fast method to detect differential alternative splicing events from RNA-seq
 experiments. (see publication and/or manual for details).
