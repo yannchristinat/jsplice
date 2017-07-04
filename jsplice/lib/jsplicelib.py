@@ -38,17 +38,30 @@ def FDR(x):
     return l
 
 #Run coverageBed
-def runCovBed(q,bedFile,nostrand):
+def runCovBed(q, bedFile, strand_arg):
+    #get bedtools version
+    cmd = "coverageBed -h 2>&1 >/dev/null | grep Version | awk '{ print $2 }'"
+    p=subprocess.Popen(cmd,shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, _ = p.communicate()
+    bedtools_version = float('.'.join(out[1:].split('.')[:2]))
+    
     while True:
         try:
             exp = q.get(False)
         except Queue.Empty:
             break
-
-        cmd='coverageBed -s -split -abam "'+exp.bamFile+'" -b "'+bedFile+'" > "'+exp.bedCountFile+'"'
-        if nostrand:
-            cmd='coverageBed -split -abam "'+exp.bamFile+'" -b "'+bedFile+'" > "'+exp.bedCountFile+'"'
-
+        
+        if bedtools_version<2.24:
+            if strand_arg is None:
+                cmd='coverageBed -split -abam "'+exp.bamFile+'" -b "'+bedFile+'" > "'+exp.bedCountFile+'"'
+            else:
+                cmd='coverageBed '+strand_arg+' -split -abam "'+exp.bamFile+'" -b "'+bedFile+'" > "'+exp.bedCountFile+'"'
+        else: #starting on version 2.24, the a and b file are interverted...
+            if strand_arg is None:
+                cmd='coverageBed -split -a "'+bedFile+'" -b "'+exp.bamFile+'" > "'+exp.bedCountFile+'"'
+            else:
+                cmd='coverageBed '+strand_arg+' -split -a "'+bedFile+'" -b "'+exp.bamFile+'" > "'+exp.bedCountFile+'"'
+            
         print cmd
         p=subprocess.Popen(cmd,shell=True) #Not the safest solution but cannot find any other... :(
         p.wait()
@@ -966,6 +979,12 @@ def runPreparationStep(args):
 
             #Running coverageBed (if needed)
             if not args.jxnonly and not args.nobam:
+                strand = None
+                if args.samestrand:
+                    strand = '-s'
+                elif args.diffstrand:
+                    strand = '-S'
+                
                 if args.nbcores==0:
                     args.nbcores = len(expDesign)
                 print 'Running coverageBed on '+str(args.nbcores)+' threads.. (might take a long time)'
@@ -978,7 +997,7 @@ def runPreparationStep(args):
 
                 tList = list()
                 for _ in range(args.nbcores):
-                    t = threading.Thread(target=runCovBed, args=(q,genomeFile,args.nostrand))
+                    t = threading.Thread(target=runCovBed, args=(q,genomeFile,strand))
                     t.daemon=True #Thread dies if the main process dies
                     tList.append(t)
                     t.start()
