@@ -1,10 +1,19 @@
 jSplice 1.0.3
 -------------
 
-jSplice is a fast method to detect differential alternative splicing events from RNA-seq
-experiments. (see publication and/or manual for details).
+jSplice is a fast method to detect differential alternative splicing events from RNA-seq experiments. (see publication for details).
 
 jSplice is freely available under the GPL license at http://www.mhs.biol.ethz.ch/research/krek/jsplice
+
+Please use the following citation if you use jSplice for your research:
+
+Yann Christinat, Rafał Pawłowski, Wilhelm Krek; jSplice: a high-performance method for accurate prediction of alternative splicing events and its application to large-scale renal cancer transcriptome data. Bioinformatics 2016; 32 (14): 2111-2119.
+
+What's new in version 1.0.3
+---------------------------
+- Fixed the issue with version 2.24.0+ of bedtools (where they changed the command line format)
+- Proper packaging of jSplice and system-wide commandline tool
+- Extended the strandedness option for coverageBed to include -s and -S as defined by coverageBed
 
 Requirements
 ------------
@@ -16,15 +25,7 @@ Installation
 ------------
 sudo python setup.py install
 
-If you don't have administrator rights, then append "--user" to the command. Also make sure that 
-~/.local/bin is in your path (or move the files somewhere else).
-
-
-What's new in version 1.0.3
----------------------------
-- Fixed the issue with version 2.24.0+ of bedtools (where they changed the command line format)
-- Proper packaging of jSplice and system-wide commandline tool
-- Extended the strandedness option for coverageBed to include -s and -S as defined by coverageBed
+If you don't have administrator rights, then append "--user" to the command. Also make sure that ~/.local/bin is in your path (or move the files somewhere else).
 
 
 Running jSplice
