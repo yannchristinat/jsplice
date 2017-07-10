@@ -27,6 +27,8 @@ sudo python setup.py install
 
 If you don't have administrator rights, then append "--user" to the command. Also make sure that ~/.local/bin is in your path (or move the files somewhere else).
 
+The package can also be used "as is". You just have to append the path to the jSplice directory to your PYTHONPATH environment variable ("export PYTHONPATH=$PYTHONPATH:/absolute/path/to/jSplice/dir"). Of note, jSplice has then to be run as a python module ("python –m jsplice.run ...")
+
 
 Running jSplice
 ---------------
@@ -34,7 +36,7 @@ jsplice [-h] [-t KEYWORD] [-e] [-b] [-n N] [-s] [-S] [-j] [-x NBEXPS] [-c COUNT]
 
 Upon the first run, jSplice saves the results into an object file (“OUTDIR/jSplice.dat”). If one wants to re-run jSplice with different parameters or thresholds, the object is loaded to lower computational costs.
 
-Note: if the jSplice folder is in your PYTHONPATH then you can call it as a module: python –m jsplice.run
+Optionnaly, you can call it as a module: python –m jsplice.run
 
 
 Required parameters
