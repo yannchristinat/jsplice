@@ -4,8 +4,5 @@
 # Setuptools distribution folder.
 /dist/
 
-#img for manual and wiki
-img/
-
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
