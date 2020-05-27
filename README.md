@@ -1,13 +1,20 @@
-jSplice 1.0.3
+
+
+jSplice 1.1.0
 -------------
 jSplice is a fast method to detect differential alternative splicing events from RNA-seq experiments. The method relies on junction reads (mapped reads that span an exon-exon junction) to uncover differentially expressed alternative splicing modules (ASMs). AMSs were introduced by [Hu et al. (Nucleic Acids Research 2013)][hu2013] and have the advantage to provide a broad definition for alternative splicing events while avoiding the whole transcript reconstruction problem.
 The method was compared to DEXSeq, MISO, MATS, DiffSplice, and SplicingCompass and displayed a better accuracy while providing a tremendous speedup (see publication for details).
 
-jSplice is freely available under the GPL license at http://www.mhs.biol.ethz.ch/research/krek/jsplice
+jSplice is freely available under the GPL license at https://github.com/yannchristinat/jsplice
 
 Please use the following citation if you use jSplice for your research:
 
 > Yann Christinat, Rafał Pawłowski, Wilhelm Krek; [jSplice: a high-performance method for accurate prediction of alternative splicing events and its application to large-scale renal cancer transcriptome data][jsplice]. Bioinformatics 2016; 32 (14): 2111-2119.
+
+What's new in version 1.1.0
+---------------------------
+- bedtools coverage now uses the -sorted argument (roughly 50% less RAM necessary)
+- class `Region` now has proper sorting of chromosomes
 
 What's new in version 1.0.3
 ---------------------------

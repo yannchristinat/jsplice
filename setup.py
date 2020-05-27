@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='jsplice',
-      version='1.0.3',
+      version='1.1.0',
       description='jSplice - Rapid detection of differential alternative splicing events from RNA-seq',
       url='https://github.com/yannchristinat/jsplice',
       author='Yann Christinat',
