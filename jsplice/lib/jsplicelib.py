@@ -37,7 +37,7 @@ def FDR(x):
     l = [l[k] if l[k] < 1.0 else 1.0 for k in ro]
     return l
 
-#Run coverageBed
+#Run coverageBed. Assumes that BAM files are sorted
 def runCovBed(q, bedFile, strand_arg):
     #get bedtools version
     cmd = "coverageBed -h 2>&1 >/dev/null | grep Version | awk '{ print $2 }'"
@@ -58,9 +58,9 @@ def runCovBed(q, bedFile, strand_arg):
                 cmd='coverageBed '+strand_arg+' -split -abam "'+exp.bamFile+'" -b "'+bedFile+'" > "'+exp.bedCountFile+'"'
         else: #starting on version 2.24, the a and b file are interverted...
             if strand_arg is None:
-                cmd='coverageBed -split -a "'+bedFile+'" -b "'+exp.bamFile+'" > "'+exp.bedCountFile+'"'
+                cmd='coverageBed -sorted -split -a "'+bedFile+'" -b "'+exp.bamFile+'" > "'+exp.bedCountFile+'"'
             else:
-                cmd='coverageBed '+strand_arg+' -split -a "'+bedFile+'" -b "'+exp.bamFile+'" > "'+exp.bedCountFile+'"'
+                cmd='coverageBed '+strand_arg+' -sorted -split -a "'+bedFile+'" -b "'+exp.bamFile+'" > "'+exp.bedCountFile+'"'
             
         print cmd
         p=subprocess.Popen(cmd,shell=True) #Not the safest solution but cannot find any other... :(

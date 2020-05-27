@@ -119,18 +119,29 @@ class Region:
         
     def __lt__(self,reg):
         if self.chrom!=reg.chrom:
-            return self.chrom<reg.chrom
+            c1 = self.chrom
+            c2 = reg.chrom
+
+            # remove chr if present
+            if c1[:3]=='chr':
+                c1 = c1[3:]
+            if c2[:3]=='chr':
+                c2 = c2[3:]
+
+            try: #try a numerical comparison
+                c1n = int(c1)
+                c2n = int(c2)
+                return c1n < c2n
+            except ValueError: # if the chromosomes are not number, then revert to string comparison
+                return c1<c2
         else:
-            if self.strand!=reg.strand: 
-                return self.strand=='-'
+            if self.start<reg.start:
+                return True
+            elif self.start==reg.start:
+                return self.end<reg.end
             else:
-                if self.start<reg.start: 
-                    return True
-                elif self.start==reg.start: 
-                    return self.end<reg.end
-                else: 
-                    return False
-        
+                return False
+
 #Gene class. The region of the gene is defined by its exons
 #A gene has to be instanciated by one single exon. Subsequent exons are to be added through the 'addExon' method
 class Gene(Region):
@@ -186,14 +197,18 @@ class Genome:
         self.name = name
         self.genes = list()
         
-    #Saves genes and exon position in BED format. (Designed for jSplice to run coverageBed)
+    #Saves genes and exon position in BED format (sorted). (Designed for jSplice to run coverageBed)
     def saveBED(self, filename):
-        f = open(filename,'w')
+        # Get all regions
+        regs = dict()
         for gene in self.genes:
-            f.write(gene.chrom+'\t'+str(gene.start)+'\t'+str(gene.end)+'\t'+gene.id+'\t0\t'+gene.strand+'\n')
+            regs[gene.getRegion()] = gene.id+'\t0\t'+gene.strand
             for exn in gene.exons:
-                f.write(exn.chrom+'\t'+str(exn.start)+'\t'+str(exn.end)+'\t'+gene.id+'|EXN\t0\t'+exn.strand+'\n')
-            
+                regs[exn] = gene.id+'|EXN\t0\t'+exn.strand
+
+        f = open(filename,'w')
+        for reg in sorted(regs.keys()):
+            f.write(reg.chrom + '\t' + str(reg.start) + '\t' + str(reg.end) + '\t' + regs[reg] + '\n')
         f.close()
         
     def saveGTF(self, filename):
