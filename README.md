@@ -1,4 +1,5 @@
-
+# End of support
+I unfortunately do not have time anymore to maintain this software. jSplice remains free to use with its bugs and downside. Thank you for your understanding.
 
 jSplice 1.1.0
 -------------
